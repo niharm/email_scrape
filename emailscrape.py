@@ -15,8 +15,8 @@ def do_login():
     print "Authenticating account..."
     
     g = pygmail()
-    email = 'madhavan@princeton.edu'
-    password = "madhavan0"
+    email = 'XXXXXX@XXXXXX.XXX'
+    password = "XXXXXXXXXXXXX"
     g.login(email,password)
     
     print "Done"
