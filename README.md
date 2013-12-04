@@ -1,9 +1,10 @@
 README for Email Scrape
+============
 Nihar Madhavan
 12/02/2013
 
 ============
-INTRODUCTION
+Introduction
 ============
 
 These are the Python scripts used in the "Listserv Scrape" project at http://www.princeton.edu/~madhavan/Listservs/.
@@ -15,7 +16,7 @@ Emailscape.py can be modified to download any configuration of data from emails!
 
 
 =====
-USAGE
+Usage
 =====
 
 Before Running
