@@ -34,7 +34,7 @@ for listserv in listservs:
 	wire_people.close()
 
 #save the people with total counts in a csv file
-wire_people = open('data/allpeople' + '.csv', 'w')
+wire_people = open('data/allpeople.csv', 'w')
 for person in allpeople:
     wire_people.write(str(person) + ', ' + str(allpeople[person]) + '\n')
     
