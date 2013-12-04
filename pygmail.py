@@ -1,11 +1,8 @@
 import re
 import imaplib, smtplib
-
 import email
 from email.message import *
-
 from datetime import *
-
 import quopri # for MIME encoding/decoding
 
 class pygmail:
@@ -43,7 +40,7 @@ class pygmail:
         
         self.M.select(folder, readonly=True)
 
-        result, data = self.M.uid('search', None, 'UNSEEN')
+        result, data = self.M.uid('search', None, 'all')
         uid_list = data[0].split()
         
         for i in range(len(uid_list)):

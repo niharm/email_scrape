@@ -1,3 +1,29 @@
+################################################
+# emailscape.py
+# Nihar Madhavan
+# December 2013
+#
+# This will download all the messages in the folders
+# for the account specified below. See readme for 
+# usage and file creation.
+#
+# Note: this will check every message in the folder.
+# Sometimes, this can cause problems if you have tagged
+# one message in a conversation but every message
+# in that converation will now be analyzed.
+################################################
+
+# UPDATE THESE VARIABLES
+
+#account info
+email = "email@domain.com"
+password = "password"
+
+l#list of folders to be searched
+folders = ['re-innformer', 'whitmanwire', 'wilsonwire', 'rockywire', 'matheymail', 'butlerbuzz']
+
+################################################
+
 import cmd, getpass, webbrowser
 import re
 import urllib
@@ -7,7 +33,7 @@ import string
 import sys
 from collections import Counter
 
- 
+# logs into email
 def do_login():
     
     emails = ['']
@@ -15,37 +41,31 @@ def do_login():
     print "Authenticating account..."
     
     g = pygmail()
-    email = 'XXXXXX@XXXXXX.XXX'
-    password = "XXXXXXXXXXXXX"
     g.login(email,password)
     
-    print "Done"
+    print "Authenticated!"
     return g
 
-
+# writes info to files
 def write_info(g, wire):
 
     print "Email: " + g.user_email.upper()
     print "Downloading: " + wire
 
+    #files
     wire_file = open('data/' + wire + '.tsv', 'w')
-    wire_file.write('#\tName\tEmail\tDate\tWeekday\tTime\tSubject\tSuspect Score \n')
-
+    wire_file.write('#\tName\tEmail\tDate\tWeekday\tTime\tSubject\n')
     wire_words = open('data/words_' + wire + '.txt', 'w')
 
-
+    # get messages
     messages = g.fetchUnreadMessages(wire)
 
+    # counter variables
     count = 1
-
     people = Counter()
-
-    listserv_address = wire + '@princeton.edu'
-    print listserv_address
 
     for msg in messages:
 
-       if msg['To'].lower() == listserv_address:
             msgFromArray = email.utils.parseaddr(msg['From'])
             name = msgFromArray[0]
             address = msgFromArray[1]
@@ -69,18 +89,6 @@ def write_info(g, wire):
             else:
                 subject = ""
 
-
-            #get spam score (specifically 'suspect score')
-            spamdetails = msg['X-Proofpoint-Spam-Details']
-            if spamdetails:
-                # get spam score
-                start = string.find(spamdetails, "suspectscore=")
-                end = string.find(spamdetails, " phishscore=")
-                suspectscore = spamdetails[(start + 13):end]
-
-            else: 
-                suspectscore = -1
-
             wire_words.write(str(msg))
 
             wire_file.write(str(count) + '\t')
@@ -89,9 +97,7 @@ def write_info(g, wire):
             wire_file.write(address + '\t')
             wire_file.write(str(date) + '\t')
             wire_file.write(day_of_week + '\t')
-            wire_file.write(time + '\t')
-            wire_file.write(str(suspectscore) + '\n')
-
+            wire_file.write(time + '\n')
 
             count += 1
 
@@ -110,11 +116,9 @@ def write_info(g, wire):
 
 
 if __name__ == '__main__':
-    
-    listservs = ['re-innformer', 'whitmanwire', 'wilsonwire', 'rockywire', 'matheymail', 'butlerbuzz']
 
-    for listserv in listservs:
+    for folder in folders:
         g = do_login()
-        write_info(g, listserv)
+        write_info(g, folder)
 
-    print("Done!")
+    print("All done!")
