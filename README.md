@@ -44,3 +44,7 @@ Count Subjects or Words
 -------------------------
 - Run "top_word_counter.py" after updating filenames
 --- Will count words and output most common words (ex. most common words in subjects)
+
+Credit
+-------------------------
+--- Credit to Shubhro Saha (github.com/shbhrsaha/) for pygmail.py scripts. 

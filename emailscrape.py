@@ -58,7 +58,7 @@ def write_info(g, wire):
     wire_words = open('data/words_' + wire + '.txt', 'w')
 
     # get messages
-    messages = g.fetchUnreadMessages(wire)
+    messages = g.fetchMessages(wire)
 
     # counter variables
     count = 1

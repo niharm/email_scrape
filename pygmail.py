@@ -34,7 +34,7 @@ class pygmail:
     
     # get all unread messages in this mailbox
     # returns list of Python Email Message objects
-    def fetchUnreadMessages(self, folder):
+    def fetchMessages(self, folder):
         
         messages = []
         
